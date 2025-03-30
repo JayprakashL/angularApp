@@ -6,14 +6,14 @@ import { RoomService } from '../room/services/room.service';
   imports: [],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.css',
-  providers: [RoomService]
+  // providers: [RoomService]
 })
 export class EmployeeComponent {
 
   empName: string = 'New Employee';
 
-  // @Self()
-  constructor (@Self() private roomService: RoomService){
+  // Removing @Self()
+  constructor (private roomService: RoomService){
 
   }
 }

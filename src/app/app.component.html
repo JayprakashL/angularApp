@@ -1,7 +1,10 @@
 <h1>Angular Project </h1>
-<!-- <app-room></app-room> -->
-<app-container>   <!-- In container component, the order is employee, ng-content and room.(This is rendered as content is defined inside this container component). Here, this parent component provides the loaded components to the container component. -->
-  <app-room></app-room>   <!-- Whereas in the container defined in the main app, it is room, employee and some HTML. -->
+<app-room></app-room>
+<!--<app-employee></app-employee> -->
+<!-- In container component, the order is employee, ng-content and room.(This is rendered as content is defined inside this container component). Here, this parent component provides the loaded components to the container component. -->
+<!-- Whereas in the container defined in the main app, it is room, employee and some HTML. -->
+<app-container>
+  <app-room></app-room>
   <app-employee></app-employee>
   <h2>This H2 tag replaces ng-content and is displayed from container component</h2>
 </app-container>
