@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Optional, ViewChild, ViewContainerRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RoomComponent } from './room/room.component';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from "./container/container.component";
 import { EmployeeComponent } from "./employee/employee.component";
+import { LoggerService } from './logger.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {   // Using ViewChild the static pr
   title = 'angularApp';
   role = 'baigan';
 
-  constructor () {}
+  constructor (@Optional() private logger: LoggerService) {}
 
   // #user in app.component.html is a template reference which allows to access that html tag inside TS using ViewChild
   // ViewContainerRef will help us to dynamically load a component
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {   // Using ViewChild the static pr
 
   ngOnInit(): void {
     // this.divVcf.nativeElement.innerText = "Element Reference Text";
+    this.logger.logger('AppComponent.ngOnInit()');
     console.log(this.divVcf)
   }
 
