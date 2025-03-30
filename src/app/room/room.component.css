@@ -1,0 +1,9 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.even{
+    background-color: blueviolet;
+}
+
+.odd{
+    background-color: red;
+}

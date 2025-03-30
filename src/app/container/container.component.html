@@ -1,0 +1,8 @@
+<p>container works!</p>
+<ng-content select = "app-employee"></ng-content>
+<ng-content>ng-content from container HTML</ng-content>
+<ng-content select = "app-room"></ng-content>
+
+<!-- All the container component content can be only accessed inside the ngAfterContentInit lifecycle hook. 
+     This is because the parent component sends the content and ngAfterContentInit knows that all the contents of the components sent by the parent component have been initialized. 
+     To select a component sent by the parent component -->

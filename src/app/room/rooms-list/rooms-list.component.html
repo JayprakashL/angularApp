@@ -1,0 +1,48 @@
+<h2> {{ title}}</h2>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Index</th>
+            <th>Even/Odd</th>
+            <th>Room Type</th>
+            <th>Amenities</th>
+            <th>Price</th>
+            <th>Photos</th>
+            <th>Check In Time</th>
+            <th>Check Out Time</th>
+            <th>Book Room</th>
+        </tr>
+        <!-- Slice words similar to other slice functions, like slicing starts from startIndex:(endIndex - 1) -->
+        <tr [ngClass]="e ? 'even' : 'odd'" *ngFor="let room of rooms  | slice : 0:10 let e = even; let i = index">
+            <td>
+                {{ i | percent}}
+            </td>
+            <td>
+                {{ e ? "Even" : "Odd"}}
+            </td>
+            <td>
+                {{room.roomType | titlecase}}
+            </td>
+            <td>
+                {{room.amenities | lowercase}}
+            </td>
+            <td>
+                {{room.price | currency : 'INR'}}
+            </td>
+            <td>
+                {{room.photos}}
+            </td>
+            <td>
+                {{room.checkInTime | date : 'short'}}
+            </td>
+            <td>
+                {{room.checkOutTime | date : 'dd/MM/YY'}}
+            </td>
+            <td>
+                <button class="btn btn-primary" (click)="selectRoom(room)"> Select</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!--{{rooms | json}} -->

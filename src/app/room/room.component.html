@@ -1,0 +1,44 @@
+<p>room works!</p>
+<app-header></app-header>
+<app-header></app-header>
+<app-header></app-header>
+<div [hidden]="flag">
+    Hotel Rooms: <br>
+    Booked Rooms:
+    <div [innerText]="bookedRooms"></div>
+    Rooms occupied:
+    <div [innerText]="occupiedRooms"></div>
+</div>
+<!-- document.getElementById('occupiedRooms').innerText() = occupiedRooms;-->
+
+<!-- Optional Chaining 
+ Number of Rooms:
+<div [ngStyle]="{'color' : rooms.availableRooms ? 'green' : 'black'}" [innerText]="roomList.length">
+
+     {{ rooms.availableRooms ?? 'No rooms'}}
+    Available Rooms: {{ rooms.availableRooms}}
+    Booked Rooms: {{ rooms.bookedRooms}}
+    Total Rooms: {{ rooms.totalRooms}}
+</div>
+-->
+
+<div *ngIf="selectedRoom">
+    {{selectedRoom | json}}
+</div>
+
+<div>
+    <button (click)="addRoom()">Add Room </button>
+</div>
+
+<!--  Binding Arrays (*ngFor) -->
+<!-- This Div or any other div is causing duplicate rendering of component-->
+<!--<div *ngIf="rooms.availableRooms > 0">
+     When adding the HTML tag of a component, also add the property. Here rooms is the property from rooms-list component and roomList is from the room component. 
+</div>-->
+<div *ngIf="flag">
+    <app-rooms-list [rooms]="roomList" [title]="title" (selectedRoom)="selectTheRoom($event)"></app-rooms-list>
+</div>
+
+
+<!-- <div [innerText]="rooms?.availableRooms"></div> -->
+<button (click)="toggle()">Hide information</button>
