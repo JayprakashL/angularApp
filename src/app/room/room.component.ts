@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, QueryList, SkipSelf, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomsList } from './room';
 import { CommonModule } from '@angular/common';
 import { RoomsListComponent } from "./rooms-list/rooms-list.component";
@@ -44,7 +44,9 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
   */
 
   // Keep it private as the service should not be displayed into the template.
-  constructor(private roomService: RoomService) { }
+  // @SkipSelf() is used to skip the local component for service and check for the parent component.
+  // Dependenct Resolution works hierarchically up and will ignore the local injector.
+  constructor(@SkipSelf() private roomService: RoomService) { }
 
   ngOnInit(): void {
     console.log(this.headerComponent);  // returns undefined, but if passed in ngAfterViewInit, returns the HeaderComponent object

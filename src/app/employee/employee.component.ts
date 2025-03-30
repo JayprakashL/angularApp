@@ -6,7 +6,7 @@ import { RoomService } from '../room/services/room.service';
   imports: [],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.css',
-  // providers: [RoomService]
+  providers: [RoomService]
 })
 export class EmployeeComponent {
 
