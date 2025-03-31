@@ -29,28 +29,20 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   roomList: RoomsList[] = [];
 
-  // By default, static: false
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent; // can access the HeaderComponent instance inside RoomComponent
-  // This instance is visible only in ngAfterViewInit, but if static is true the Component is visible in ngOnInit.
-  // This is because HeaderComponent does not contain any asynchronous code and is safe to use.
-  // this.headerComponent on static:false is available on ngAfterViewInit is because ngOnInit initialises the component and ngAfterViewInit initialises the view containing in the component. 
 
   @ViewChildren(HeaderComponent) headerChildren!: QueryList<HeaderComponent>;
-  /*
- QueryList<Component> contains: dirty -> boolean flag if any value is changed
-                                first, last -> Displays the first and last component present.
-                                length -> number of components
-                                results -> total components present
-  */
 
-  // Keep it private as the service should not be displayed into the template.
-  // @SkipSelf() is used to skip the local component for service and check for the parent component.
-  // Dependenct Resolution works hierarchically up and will ignore the local injector.
+
   constructor(@SkipSelf() private roomService: RoomService) { }
 
+  // When using http, error is observed: Type 'Observable<Object>' is missing the following properties from type 'RoomsList[]'
   ngOnInit(): void {
-    console.log(this.headerComponent);  // returns undefined, but if passed in ngAfterViewInit, returns the HeaderComponent object
-    this.roomList = this.roomService.getRooms();  // the data is rendered from the service not the component.
+    // console.log(this.headerComponent);
+    this.roomService.getRooms().subscribe(rooms => {
+      this.roomList = rooms;
+    });
+    // returns an Observable object.
   }
 
   ngAfterViewInit(): void {
@@ -77,6 +69,7 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   addRoom() {
     const newRoom: RoomsList = {
+      roomNumber: "Room 103",
       roomType: "Room 103",
       amenities: "Only water",
       photos: "Your photo here",
