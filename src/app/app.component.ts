@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Optional, ViewChild, ViewContainerRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RoomComponent } from './room/room.component';
-import { CommonModule } from '@angular/common';
-import { ContainerComponent } from "./container/container.component";
+
 import { EmployeeComponent } from "./employee/employee.component";
 import { LoggerService } from './logger.service';
 
@@ -11,7 +10,7 @@ import { LoggerService } from './logger.service';
   //imports: [RouterOutlet, RoomComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RoomComponent, ContainerComponent, EmployeeComponent]
+  imports: [RoomComponent, EmployeeComponent]
 })
 export class AppComponent implements OnInit {   // Using ViewChild the static property is false, thus use AfterViewInit
   title = 'angularApp';
