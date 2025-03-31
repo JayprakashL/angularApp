@@ -1,4 +1,4 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken, Injector } from "@angular/core";
 import { AppConfig } from "./appconfig.interface";
 import { env } from "../environment/environment";
 
@@ -9,3 +9,16 @@ export const APP_SERVICE_CONF = new InjectionToken<AppConfig>('app.config');
 export const APP_CONFIG: AppConfig = {
     apiEndpoint: env.apiEndpoint
 }
+
+// const providers = [
+//     {
+//         provide: APP_SERVICE_CONF,
+//         useValue: {
+//             apiEndpoint: env.apiEndpoint
+//         }
+//     }
+// ];
+
+// const injector = Injector.create({providers});
+
+// const myInterface = injector.get(APP_SERVICE_CONF);
