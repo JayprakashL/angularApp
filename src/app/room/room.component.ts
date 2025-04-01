@@ -1,8 +1,8 @@
 import { AfterViewChecked, AfterViewInit, Component, OnInit, QueryList, SkipSelf, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomsList } from './room';
 import { CommonModule } from '@angular/common';
-import { RoomsListComponent } from "./rooms-list/rooms-list.component";
-import { HeaderComponent } from "../header/header.component";
+import { RoomsListComponent } from './rooms-list/rooms-list.component';
+import { HeaderComponent } from '../header/header.component';
 import { RoomService } from './services/room.service';
 import { Observable } from 'rxjs';
 
@@ -18,7 +18,7 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
   bookedRooms = 10;
   flag = true;
 
-  title = "Room Lists";
+  title = 'Room Lists';
 
   selectedRoom!: RoomsList;
 
@@ -62,8 +62,8 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   ngAfterViewInit(): void {
-    this.headerComponent.headerTitle = "Header Component View";
-    this.headerChildren.last.headerTitle = "Last Component Title";  // returns HeaderComponent object
+    this.headerComponent.headerTitle = 'Header Component View';
+    this.headerChildren.last.headerTitle = 'Last Component Title';  // returns HeaderComponent object
     // this.headerChildren.get(index).property = AssignSomeValue;
     this.headerChildren.forEach(comp => {
       console.log(comp.headerTitle);
@@ -76,7 +76,7 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   toggle() {
     this.flag = !this.flag;
-    this.title = "Rooms List";
+    this.title = 'Rooms List';
   }
 
   selectTheRoom(room: RoomsList) {
@@ -85,10 +85,10 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   addRoom() {
     const newRoom: RoomsList = {
-      roomNumber: "104",
-      roomType: "Business",
-      amenities: "All amenities",
-      photos: "Your photo here",
+      roomNumber: '104',
+      roomType: 'Business',
+      amenities: 'All amenities',
+      photos: 'Your photo here',
       price: 699,
       checkInTime: new Date('01-Mar-2025'),
       checkOutTime: new Date('01-Apr-2025'),
@@ -98,6 +98,31 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
     //this.roomList = [...this.roomList, newRoom];  // ... => spread operator
     this.roomService.addRooms(newRoom).subscribe((data) => {
       this.roomList = data;
-    })
+    });
+  }
+
+  // updates the record from the matched roomNumber from RoomService
+  editRoom(){
+    const room: RoomsList = {
+      roomNumber: '6bc1558e-9a74-4704-8c59-88ef39ccbebf',
+      roomType: 'Business',
+      amenities: 'All amenities',
+      photos: 'Your photo here',
+      price: 699,
+      checkInTime: new Date('01-Mar-2025'),
+      checkOutTime: new Date('01-Apr-2025'),
+      ratings: 4
+    };
+
+    this.roomService.edit(room).subscribe((newRoom) => {
+      this.roomList = newRoom;
+    });
+  }
+
+  // deletes the record from the passed roomNumber Id
+  deleteRoom(){
+    this.roomService.deleteRoom('1').subscribe((data) => {
+      this.roomList = data;
+    });
   }
 }

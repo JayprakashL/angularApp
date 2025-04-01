@@ -5,6 +5,7 @@
         <tr>
             <th>Index</th>
             <th>Even/Odd</th>
+            <th>Room Number</th>
             <th>Room Type</th>
             <th>Amenities</th>
             <th>Price</th>
@@ -21,6 +22,9 @@
             </td>
             <td>
                 {{ e ? "Even" : "Odd"}}
+            </td>
+            <td>
+                {{ room.roomNumber }}
             </td>
             <td>
                 {{room.roomType | titlecase}}
