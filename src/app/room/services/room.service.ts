@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { RoomsList } from '../room';
 import { APP_SERVICE_CONF } from '../../app_config/appconfig.service';
 import { AppConfig } from '../../app_config/appconfig.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +36,11 @@ export class RoomService {
 
   deleteRoom(id: string){
     return this.http.delete<RoomsList[]>(`/api/rooms/${id}`);
+  }
+
+  // Using HttpRequest from JSONPlaceHolder, which is useful as it gives more information and the entire HttpResponse object.
+  getPhotos(){
+    const request = new HttpRequest('GET', `https://jsonplaceholder.typicode.com/photos`, {reportProgress: true});
+    return this.http.request(request);
   }
 }

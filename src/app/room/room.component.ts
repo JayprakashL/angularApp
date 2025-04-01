@@ -5,6 +5,7 @@ import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { RoomService } from './services/room.service';
 import { Observable } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-room',
@@ -29,6 +30,8 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   roomList: RoomsList[] = [];
+
+  totalBytes = 0;
 
   // Creating a stream and subscribing it inside ngOnInit, may define the type in generics
   stream = new Observable(observer => {
@@ -58,7 +61,38 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
     this.roomService.getRooms().subscribe(rooms => {
       this.roomList = rooms;
     });
-    // returns an Observable object.
+    this.roomService.getPhotos().subscribe((event) => {  // multiple events are called
+      switch(event.type){
+        case HttpEventType.Sent: {
+          console.log('Request has been made.');
+          break;
+        }
+        case HttpEventType.DownloadProgress: {
+          this.totalBytes += event.loaded;
+          console.log('Response with body is received with ' + this.totalBytes);
+          break;
+        }
+        case HttpEventType.UploadProgress: {
+          console.log('Response header and status has been sent.');
+          break;
+        }
+        case HttpEventType.User: {
+          console.log('Baigan was sent.');
+          break;
+        }
+        case HttpEventType.ResponseHeader: {
+          console.log('Download Progress received.');
+          break;
+        }
+        case HttpEventType.Response: {
+          console.log(event.body);
+          break;
+        }
+        default: {
+          console.log('Default is calle idk.')
+        }
+      }
+    })
   }
 
   ngAfterViewInit(): void {
