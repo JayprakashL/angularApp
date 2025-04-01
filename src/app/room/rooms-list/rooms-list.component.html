@@ -11,6 +11,7 @@
             <th>Photos</th>
             <th>Check In Time</th>
             <th>Check Out Time</th>
+            <th>Ratings</th>
             <th>Book Room</th>
         </tr>
         <!-- Slice words similar to other slice functions, like slicing starts from startIndex:(endIndex - 1) -->
@@ -34,10 +35,13 @@
                 {{room.photos}}
             </td>
             <td>
-                {{room.checkInTime | date : 'short'}}
+                {{room.checkInTime | date }}
             </td>
             <td>
-                {{room.checkOutTime | date : 'dd/MM/YY'}}
+                {{room.checkOutTime | date }}
+            </td>
+            <td>
+                {{ room.ratings }}
             </td>
             <td>
                 <button class="btn btn-primary" (click)="selectRoom(room)"> Select</button>
