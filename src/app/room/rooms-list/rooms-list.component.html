@@ -16,7 +16,7 @@
             <th>Book Room</th>
         </tr>
         <!-- Slice words similar to other slice functions, like slicing starts from startIndex:(endIndex - 1) -->
-        <tr [ngClass]="e ? 'even' : 'odd'" *ngFor="let room of rooms  | slice : 0:10 let e = even; let i = index">
+        <tr [ngClass]="e ? 'even' : 'odd'" *ngFor="let room of rooms; let e = even; let i = index">
             <td>
                 {{ i | percent}}
             </td>
@@ -39,13 +39,13 @@
                 {{room.photos}}
             </td>
             <td>
-                {{room.checkInTime | date }}
+                {{room.checkinTime | date }}
             </td>
             <td>
-                {{room.checkOutTime | date }}
+                {{room.checkoutTime | date }}
             </td>
-            <td>
-                {{ room.ratings }}
+            <td>    
+                {{ room.rating }}
             </td>
             <td>
                 <button class="btn btn-primary" (click)="selectRoom(room)"> Select</button>

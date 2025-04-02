@@ -6,7 +6,7 @@ import { RoomService } from '../room/services/room.service';
   selector: 'app-container',
   templateUrl: './container.component.html',
   styleUrl: './container.component.css',
-  providers: [RoomService]
+  //providers: [RoomService]
 })
 export class ContainerComponent implements AfterContentInit{
   // The container component does not know what components are available to be used which has been sent by the parent component.

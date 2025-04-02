@@ -48,10 +48,11 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   constructor(@SkipSelf() private roomService: RoomService) { }
 
-  ngOnInit(): void {
-    this.roomService.getRooms().subscribe(rooms =>{
+  ngOnInit(): void {  // accessing property 'getRooms$' stream rather than using getRooms()
+    this.roomService.getRooms$.subscribe(rooms =>{
       this.roomList =  rooms;
     });
+    console.log(this.roomList);
     this.stream.subscribe({
       next: (val) => console.log(val),
       complete: () => console.log('complete'),
@@ -61,38 +62,38 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
     this.roomService.getRooms().subscribe(rooms => {
       this.roomList = rooms;
     });
-    this.roomService.getPhotos().subscribe((event) => {  // multiple events are called
-      switch(event.type){
-        case HttpEventType.Sent: {
-          console.log('Request has been made.');
-          break;
-        }
-        case HttpEventType.DownloadProgress: {
-          this.totalBytes += event.loaded;
-          console.log('Response with body is received with ' + this.totalBytes);
-          break;
-        }
-        case HttpEventType.UploadProgress: {
-          console.log('Response header and status has been sent.');
-          break;
-        }
-        case HttpEventType.User: {
-          console.log('Baigan was sent.');
-          break;
-        }
-        case HttpEventType.ResponseHeader: {
-          console.log('Download Progress received.');
-          break;
-        }
-        case HttpEventType.Response: {
-          console.log(event.body);
-          break;
-        }
-        default: {
-          console.log('Default is calle idk.')
-        }
-      }
-    })
+    // this.roomService.getPhotos().subscribe((event) => {  // multiple events are called
+      // switch(event.type){
+      //   case HttpEventType.Sent: {
+      //     console.log('Request has been made.');
+      //     break;
+      //   }
+      //   case HttpEventType.DownloadProgress: {
+      //     this.totalBytes += event.loaded;
+      //     console.log('Response with body is received with ' + this.totalBytes);
+      //     break;
+      //   }
+      //   case HttpEventType.UploadProgress: {
+      //     console.log('Response header and status has been sent.');
+      //     break;
+      //   }
+      //   case HttpEventType.User: {
+      //     console.log('Baigan was sent.');
+      //     break;
+      //   }
+      //   case HttpEventType.ResponseHeader: {
+      //     console.log('Download Progress received.');
+      //     break;
+      //   }
+      //   case HttpEventType.Response: {
+      //     console.log(event.body);
+      //     break;
+      //   }
+      //   default: {
+      //     console.log('Default is calle idk.')
+      //   }
+      // }
+    //})
   }
 
   ngAfterViewInit(): void {
@@ -124,9 +125,9 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
       amenities: 'All amenities',
       photos: 'Your photo here',
       price: 699,
-      checkInTime: new Date('01-Mar-2025'),
-      checkOutTime: new Date('01-Apr-2025'),
-      ratings: 4
+      checkinTime: new Date('01-Mar-2025'),
+      checkoutTime: new Date('01-Apr-2025'),
+      rating: 4
     };
     
     //this.roomList = [...this.roomList, newRoom];  // ... => spread operator
@@ -143,9 +144,9 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked {
       amenities: 'All amenities',
       photos: 'Your photo here',
       price: 699,
-      checkInTime: new Date('01-Mar-2025'),
-      checkOutTime: new Date('01-Apr-2025'),
-      ratings: 4
+      checkinTime: new Date('01-Mar-2025'),
+      checkoutTime: new Date('01-Apr-2025'),
+      rating: 4
     };
 
     this.roomService.edit(room).subscribe((newRoom) => {
