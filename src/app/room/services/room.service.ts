@@ -3,7 +3,7 @@ import { RoomsList } from '../room';
 import { APP_SERVICE_CONF } from '../../app_config/appconfig.service';
 import { AppConfig } from '../../app_config/appconfig.interface';
 import { HttpClient, HttpRequest } from '@angular/common/http';
-import { shareReplay } from 'rxjs';
+import { shareReplay, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,6 @@ export class RoomService {
     console.log(this.config.apiEndpoint);
   }
 
-  // Syntax changed of accessing the getRooms(), previously it was
-  // getRooms$ = http.get<RoomsList[]>('/api/rooms').pipe(shareReplay(1));
   get getRooms$(){  // getRooms is a property and '$' denotes that property is a stream
     return this.http.get<RoomsList[]>('/api/rooms').pipe(   // .pipe() allows to modify the stream. The request called will be cached
       shareReplay(1)
