@@ -51,7 +51,7 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked, O
   constructor(@SkipSelf() private roomService: RoomService) { }
 
   ngOnInit(): void {
-    this.roomService.getRooms$.subscribe(rooms =>{
+    this.subscription = this.roomService.getRooms$.subscribe(rooms =>{
       this.roomList =  rooms;
     });
     console.log(this.roomList);
@@ -61,9 +61,7 @@ export class RoomComponent implements OnInit, AfterViewInit, AfterViewChecked, O
     //   error: (err) => console.log(err)
     // });
     // this.stream.subscribe((data) => console.log(data));
-    this.subscription = this.roomService.getRooms().subscribe(rooms => {
-      this.roomList = rooms;
-    });
+    
     // this.roomService.getPhotos().subscribe((event) => {  // multiple events are called
       // switch(event.type){
       //   case HttpEventType.Sent: {
