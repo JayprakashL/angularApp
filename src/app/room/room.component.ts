@@ -61,7 +61,7 @@ export class RoomComponent
 
   constructor(@SkipSelf() private roomService: RoomService) {}
 
-  room$!: Observable<RoomsList[]>; // will be initialized in ngOnInit
+  room$!: Observable<RoomsList[]>; // will be initialized in ngOnInit, this will fetch from the function and no subscription is needed here
 
   subscription$!: Subscription; // will be initialized in ngOnInit
 
@@ -113,6 +113,9 @@ export class RoomComponent
       error: (err) => console.log(err),
     });
     this.stream.subscribe((data) => console.log(data));
+    // this.subscription = this.roomService.getRooms$.subscribe((rooms) => {
+    // this.roomList = rooms;
+    // });
     // this.roomService.getRooms$.subscribe((rooms) => {
     // this.roomList = rooms;
     // });

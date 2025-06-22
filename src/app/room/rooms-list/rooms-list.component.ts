@@ -29,7 +29,7 @@ import { RoomsList } from '../room';
 export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
   // Get the Data of Rooms List
   // The property 'rooms' on the HTML tag <app-rooms-list>
-  @Input() rooms: RoomsList[] | null = [];
+  @Input() rooms: RoomsList[] | null = []; // used in async pipe as stream can return null or undefined
 
   @Input() title: string = '';
 

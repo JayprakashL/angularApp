@@ -2,7 +2,7 @@
 <app-header></app-header>
 <!-- <app-header></app-header>
 <app-header></app-header> -->
-<!-- {{ room$ | async | json }} -->
+{{ room$ | async | json }}
 <!-- For a stream use async pipe and json for displaying that object. Previously it was subscribed to get the data out and read the data. async pipe gets the data and unwraps(unsubscribe to the data) and gives the data. When ngOnDestroy is called, async pipe takes care of unsubscribing to the object.-->
 <div [hidden]="flag">
   Hotel Rooms: <br />
