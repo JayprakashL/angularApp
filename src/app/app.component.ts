@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
   title = 'angularApp';
   role = 'baigan';
 
-  // Storage is a JS Web Storage API interface
   constructor(
     @Optional() private logger: LoggerService,
     @Inject(localStorageToken) private localStorage: Storage
@@ -45,7 +44,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // this.divVcf.nativeElement.innerText = "Element Reference Text";
     //this.logger.logger('AppComponent.ngOnInit()');
-    //console.log(this.divVcf);
     const x = this.localStorage.getItem('AngularUser');
     console.log(x);
   }

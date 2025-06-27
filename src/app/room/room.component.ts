@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { RoomService } from './services/room.service';
-import { catchError, Observable, of, Subject, Subscription } from 'rxjs';
+import { catchError, map, Observable, of, Subject, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -47,7 +47,6 @@ export class RoomComponent
 
   totalBytes = 0;
 
-  // Creating a stream and subscribing it inside ngOnInit, may define the type in generics
   stream = new Observable((observer) => {
     observer.next('first');
     observer.next('second');
@@ -55,7 +54,7 @@ export class RoomComponent
     observer.complete();
   });
 
-  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent; // can access the HeaderComponent instance inside RoomComponent
+  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
 
   @ViewChildren(HeaderComponent) headerChildren!: QueryList<HeaderComponent>;
 
@@ -66,10 +65,10 @@ export class RoomComponent
   subscription$!: Subscription; // will be initialized in ngOnInit
 
   error$ = new Subject<string>(); // Initialization is needed // It is both observable and observer
-  // will subscribe this error$ for every new error that occurs in the stream
-  // Do not keep the error practice at the component level, better keep it at the service level
 
-  getError$ = this.error$.asObservable(); // converts the Subject to Observable to be used in the template with async pipe
+  getError$ = this.error$.asObservable(); // converts the Subject to Observable
+
+  roomCount$!: Observable<any>;
 
   ngOnInit(): void {
     // 3 methods of an observer: next() , error() , and complete()
@@ -77,18 +76,23 @@ export class RoomComponent
       catchError((err) => {
         console.log(err.message);
         this.error$.next(err.message); // to display error message in the template
-        return of([]); // of is used to return an empty array in case of error (of is an RxJS operator that creates an observable from the provided values)
+        return of([]);
       })
     );
     // this.subscription = this.roomService.getRooms$.subscribe((rooms) => {
-    //   // manually subscribing to the stream
     //   this.roomList = rooms; // to avoid manual subscription, use shareReplay(1) of api call in the service and use method.
     // });
-    console.log(this.roomList);
+
+    // subscribing to the same stream of rooms$, adding const throws 'Cannot find name 'roomCount$''
+    // Thus it has to be declared as a class property
+    // This stream is not modified, inside the stream we are modifying and returning the number of rooms
+    this.roomCount$ = this.roomService.getRooms$.pipe(
+      map((rooms) => rooms.length)
+    );
+    console.log('Room Count:', this.roomCount$);
 
     this.roomService.getPhotos().subscribe((event) => {
       console.log(event);
-      // multiple events are called
       switch (event.type) {
         case HttpEventType.Sent: {
           console.log('Request has been made.');
@@ -136,7 +140,7 @@ export class RoomComponent
 
   ngAfterViewInit(): void {
     this.headerComponent.headerTitle = 'Header Component View';
-    this.headerChildren.last.headerTitle = 'Last Component Title'; // returns HeaderComponent object
+    this.headerChildren.last.headerTitle = 'Last Component Title';
     // this.headerChildren.get(index).property = AssignSomeValue;
     this.headerChildren.forEach((comp) => {
       console.log(comp.headerTitle);
@@ -172,7 +176,6 @@ export class RoomComponent
     });
   }
 
-  // updates the record from the matched roomNumber from RoomService
   editRoom() {
     const room: RoomsList = {
       roomNumber: 1,
@@ -190,7 +193,6 @@ export class RoomComponent
     });
   }
 
-  // deletes the record from the passed roomNumber Id
   deleteRoom() {
     this.roomService.deleteRoom('1').subscribe((data) => {
       this.roomList = data;

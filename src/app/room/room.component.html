@@ -31,7 +31,11 @@
 <div>
   <button (click)="addRoom()">Add Room</button>
 </div>
-<h1>{{ getError$ | async }}</h1>
+<h1>
+  {{ getError$ | async }}
+  {{ roomCount$ | async }}
+</h1>
+
 <!--  Binding Arrays (*ngFor) -->
 <!-- This Div or any other div is causing duplicate rendering of component-->
 <!--<div *ngIf="rooms.availableRooms > 0">
