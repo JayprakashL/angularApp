@@ -18,7 +18,7 @@ export class RoomService {
   ) {
     console.log(this.config.apiEndpoint);
     this.getRooms$ = this.http
-      .get<RoomsList[]>('/api/rooms')
+      .get<RoomsList[]>('/api/room') // creating an error of http call
       .pipe(shareReplay(1));
     // .pipe() allows to modify the stream. The request called will be cached // getRooms is a property and '$' denotes that property is a stream
   }

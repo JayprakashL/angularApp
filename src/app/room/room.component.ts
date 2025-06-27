@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { RoomService } from './services/room.service';
-import { Observable, Subscription } from 'rxjs';
+import { catchError, Observable, of, Subject, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -65,12 +65,25 @@ export class RoomComponent
 
   subscription$!: Subscription; // will be initialized in ngOnInit
 
+  error$ = new Subject<string>(); // Initialization is needed // It is both observable and observer
+  // will subscribe this error$ for every new error that occurs in the stream
+  // Do not keep the error practice at the component level, better keep it at the service level
+
+  getError$ = this.error$.asObservable(); // converts the Subject to Observable to be used in the template with async pipe
+
   ngOnInit(): void {
-    this.room$ = this.roomService.getRooms$;
-    this.subscription = this.roomService.getRooms$.subscribe((rooms) => {
-      // manually subscribing to the stream
-      this.roomList = rooms; // to avoid manual subscription, use shareReplay(1) of api call in the service and use method.
-    });
+    // 3 methods of an observer: next() , error() , and complete()
+    this.room$ = this.roomService.getRooms$.pipe(
+      catchError((err) => {
+        console.log(err.message);
+        this.error$.next(err.message); // to display error message in the template
+        return of([]); // of is used to return an empty array in case of error (of is an RxJS operator that creates an observable from the provided values)
+      })
+    );
+    // this.subscription = this.roomService.getRooms$.subscribe((rooms) => {
+    //   // manually subscribing to the stream
+    //   this.roomList = rooms; // to avoid manual subscription, use shareReplay(1) of api call in the service and use method.
+    // });
     console.log(this.roomList);
 
     this.roomService.getPhotos().subscribe((event) => {
