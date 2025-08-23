@@ -15,6 +15,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LoggerService } from './logger.service';
 import { localStorageToken } from './localstorage.token';
 import { ContainerComponent } from './container/container.component';
+import { InitializerService } from './initializer.service';
 
 @Component({
   selector: 'app-root',
@@ -30,9 +31,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     @Optional() private logger: LoggerService,
-    @Inject(localStorageToken) private localStorage: Storage
+    @Inject(localStorageToken) private localStorage: Storage,
+    private initService: InitializerService
   ) {
     //this.localStorage.getItem('token');
+    console.log(
+      'Injected Initializer Service config:',
+      this.initService.config
+    );
   }
 
   // #user in app.component.html is a template reference which allows to access that html tag inside TS using ViewChild
