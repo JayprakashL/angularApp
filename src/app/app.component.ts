@@ -22,7 +22,7 @@ import { InitializerService } from './initializer.service';
   //imports: [RouterOutlet, RoomComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RoomComponent, EmployeeComponent, ContainerComponent],
+  imports: [RoomComponent, EmployeeComponent, ContainerComponent, RouterOutlet],
 })
 export class AppComponent implements OnInit {
   // Using ViewChild the static property is false, thus use AfterViewInit

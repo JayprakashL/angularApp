@@ -20,17 +20,11 @@ import {
 import { requestInterceptor } from './request.interceptor';
 import { InitializerService } from './initializer.service';
 
-// App Initializer is an object where service is added
-// function initFactory(initService: InitializerService) {
-//   // Initializes the App InitializerService, register it in the providers array
-//   return () => initService.initializer();
-// }
-
 // Mention the InjectionToken in app.config or the configuration file mentioned inside the parameter of the InjectionToken.
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes), // Routing configured (standalone) instead of app.routing.module.ts and imported RouterModule in app.module.ts
     provideClientHydration(withEventReplay()),
     provideHttpClient(
       withFetch(),
