@@ -1,6 +1,6 @@
 <h1>Angular Project</h1>
-<!-- <app-room></app-room> -->
-<!-- <app-employee></app-employee> -->
+<!-- <app-room></app-room>
+<app-employee></app-employee> -->
 <!-- In container component, the order is employee, ng-content and room.(This is rendered as content is defined inside this container component). Here, this parent component provides the loaded components to the container component. -->
 <!-- Whereas in the container defined in the main app, it is room, employee and some HTML. -->
 <!-- <app-container>
@@ -8,7 +8,7 @@
   <app-employee></app-employee>
   <h2>
     This H2 tag replaces ng-content and is displayed from container component
-  </h2>
+  </h2> 
 </app-container> -->
 
 <!-- <div #templateName></div> -->
@@ -29,4 +29,8 @@
     You do not belong to any role of the Application!!
   </div>
 </div> -->
+<!-- do not use HREF -->
+<app-app-nav></app-app-nav>
+<!-- <a [routerLink]="'rooms'">Rooms</a>
+<a [routerLink]="'employee'">Employee</a> -->
 <router-outlet></router-outlet>

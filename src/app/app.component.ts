@@ -8,7 +8,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { RoomComponent } from './room/room.component';
 
 import { EmployeeComponent } from './employee/employee.component';
@@ -16,13 +16,22 @@ import { LoggerService } from './logger.service';
 import { localStorageToken } from './localstorage.token';
 import { ContainerComponent } from './container/container.component';
 import { InitializerService } from './initializer.service';
+import { CommonModule } from '@angular/common';
+import { AppNavComponent } from './app-nav/app-nav.component';
 
 @Component({
   selector: 'app-root',
-  //imports: [RouterOutlet, RoomComponent, CommonModule],
+  // imports: [RouterOutlet, RoomComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RoomComponent, EmployeeComponent, ContainerComponent, RouterOutlet],
+  imports: [
+    RoomComponent,
+    EmployeeComponent,
+    ContainerComponent,
+    RouterOutlet,
+    RouterLink,
+    AppNavComponent,
+  ],
 })
 export class AppComponent implements OnInit {
   // Using ViewChild the static property is false, thus use AfterViewInit

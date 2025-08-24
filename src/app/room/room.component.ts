@@ -23,9 +23,7 @@ import { HttpEventType } from '@angular/common/http';
   templateUrl: './room.component.html',
   styleUrl: './room.component.css',
 })
-export class RoomComponent
-  implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy
-{
+export class RoomComponent implements OnInit, OnDestroy {
   // availableRooms = 20;
   occupiedRooms = 5;
   bookedRooms = 10;
@@ -138,16 +136,16 @@ export class RoomComponent
     // });
   }
 
-  ngAfterViewInit(): void {
-    this.headerComponent.headerTitle = 'Header Component View';
-    this.headerChildren.last.headerTitle = 'Last Component Title';
-    // this.headerChildren.get(index).property = AssignSomeValue;
-    this.headerChildren.forEach((comp) => {
-      console.log(comp.headerTitle);
-    });
-  }
+  // ngAfterViewInit(): void {
+  //   this.headerComponent.headerTitle = 'Header Component View';
+  //   this.headerChildren.last.headerTitle = 'Last Component Title';
+  //   // this.headerChildren.get(index).property = AssignSomeValue;
+  //   this.headerChildren.forEach((comp) => {
+  //     console.log(comp.headerTitle);
+  //   });
+  // }
 
-  ngAfterViewChecked(): void {}
+  // ngAfterViewChecked(): void {}
 
   toggle() {
     this.flag = !this.flag;
