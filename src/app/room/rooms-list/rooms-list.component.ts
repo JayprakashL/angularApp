@@ -11,10 +11,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { RoomsList } from '../room';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-rooms-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './rooms-list.component.html',
   styleUrl: './rooms-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
