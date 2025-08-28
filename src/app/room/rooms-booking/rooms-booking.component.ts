@@ -14,7 +14,7 @@ export class RoomsBookingComponent {
 
   id: number = 0;
 
-  id$: Observable<any> | undefined;
+  id$!: Observable<number>;
 
   ngOnInit(): void {
     // Router's data is a service
@@ -29,7 +29,7 @@ export class RoomsBookingComponent {
     this.id$ = this.router.paramMap.pipe(
       map((params) => {
         const roomId = params.get('id');
-        return roomId !== null ? Number(roomId) : ''; // type changed from number to string
+        return roomId !== null ? Number(roomId) : 0; // type changed from number to string
       })
     );
   }
