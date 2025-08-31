@@ -1,0 +1,5 @@
+While adding the addRoom component, an issue was encountered due to the order of routes in Angular routing configuration. 
+The routes were defined in the order `rooms/:id` and then `rooms/add`. 
+As a result, when navigating to `rooms/add`, Angular interpreted "add" as the `id` parameter. 
+This caused the RoomList component to re-render with `{{ id | async }}`, but since the parameter was "add" (a string, not a number), the value became null and displayed as NaN. 
+Reordering the routes to place `rooms/add` before `rooms/:id` resolved the issue.

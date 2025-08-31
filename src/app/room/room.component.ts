@@ -156,24 +156,6 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.selectedRoom = room;
   }
 
-  addRoom() {
-    const newRoom: RoomsList = {
-      roomNumber: 104,
-      roomType: 'Business',
-      amenities: 'All amenities',
-      photos: 'Your photo here',
-      price: 699,
-      checkinTime: new Date('01-Mar-2025'),
-      checkoutTime: new Date('01-Apr-2025'),
-      rating: 4,
-    };
-
-    //this.roomList = [...this.roomList, newRoom];  // ... => spread operator
-    this.roomService.addRooms(newRoom).subscribe((data) => {
-      this.roomList = data;
-    });
-  }
-
   editRoom() {
     const room: RoomsList = {
       roomNumber: 1,

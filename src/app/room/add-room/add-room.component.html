@@ -1,0 +1,80 @@
+<!-- <p>add-room works!</p> -->
+{{ room | json }}
+<!-- A check for 2-way data binding -->
+
+<div class="success-message" *ngIf="successMessage">
+  <p>{{ successMessage }}</p>
+</div>
+<form (ngSubmit)="addRoom()">
+  <div class="form-group">
+    <label for="roomType">Room Type</label>
+    <input
+      class="form-control"
+      type="text"
+      name="roomType"
+      [(ngModel)]="room.roomType"
+      placeholder="Room Type"
+    />
+  </div>
+  <div class="form-group">
+    <label for="amenities">Amenities</label>
+    <input
+      class="form-control"
+      type="text"
+      name="amenities"
+      [(ngModel)]="room.amenities"
+      placeholder="Amenities"
+    />
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input
+      class="form-control"
+      type="number"
+      name="price"
+      [(ngModel)]="room.price"
+      placeholder="Price"
+    />
+  </div>
+  <div class="form-group">
+    <label for="photos">Photos</label>
+    <input
+      class="form-control"
+      type="text"
+      name="photos"
+      [(ngModel)]="room.photos"
+      placeholder="Photos (Provide URL)"
+    />
+  </div>
+  <div class="form-group">
+    <label for="checkinTime">Check-in Time</label>
+    <input
+      class="form-control"
+      type="datetime"
+      name="checkinTime"
+      [(ngModel)]="room.checkinTime"
+      placeholder="Check-in Time"
+    />
+  </div>
+  <div class="form-group">
+    <label for="checkoutTime">Check-out Time</label>
+    <input
+      class="form-control"
+      type="datetime"
+      name="checkoutTime"
+      [(ngModel)]="room.checkoutTime"
+      placeholder="Check-out Time"
+    />
+  </div>
+  <div class="form-group">
+    <label for="rating">Rating</label>
+    <input
+      class="form-control"
+      type="number"
+      name="rating"
+      [(ngModel)]="room.rating"
+      placeholder="Rating"
+    />
+  </div>
+  <button class="btn btn-primary" type="submit">Add Room</button>
+</form>
