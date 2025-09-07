@@ -12,6 +12,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
   styleUrl: './add-room.component.css',
 })
 export class AddRoomComponent {
+  Date: any;
   constructor(private roomService: RoomService) {}
 
   room: RoomsList = {
@@ -21,7 +22,7 @@ export class AddRoomComponent {
     price: 0,
     photos: '',
     checkinTime: new Date(),
-    checkoutTime: new Date(),
+    checkoutTime: new Date(new Date().getTime() + 86400000),
     rating: 0,
   };
 

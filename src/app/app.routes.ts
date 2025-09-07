@@ -7,9 +7,9 @@ import { AddRoomComponent } from './room/add-room/add-room.component';
 
 export const routes: Routes = [
   { path: 'employee', component: EmployeeComponent },
-  { path: 'rooms', component: RoomComponent },
   { path: 'rooms/add', component: AddRoomComponent, pathMatch: 'full' },
   { path: 'rooms/:id', component: RoomsBookingComponent },
+  { path: 'rooms', component: RoomComponent },
   { path: '', redirectTo: '/rooms', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }, // Wild card routing
 ];
