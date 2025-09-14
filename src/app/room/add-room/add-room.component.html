@@ -9,7 +9,7 @@
 <div class="success-message" *ngIf="successMessage !== ''">
   <p>{{ successMessage }}</p>
 </div>
-<form #roomsForm="ngForm" (ngSubmit)="addRoom()">
+<form #roomsForm="ngForm" (ngSubmit)="addRoom(roomsForm)">
   <!-- Defining an instance of this form. -->
   <div class="form-group">
     <label for="roomType">Room Type</label>
@@ -35,16 +35,22 @@
       required
       minlength="5"
       maxlength="20"
-      [defaultValue]="'1 BedRoom, TV, AC, Bathroom, Closet'"
     />
   </div>
   <div
+    class="alert alert-danger"
+    *ngIf="roomAmenities.dirty && roomAmenities.errors?.['required']"
+  >
+    Please provide the amenities.
+    {{ roomAmenities.errors | json }}
+  </div>
+  <!-- <div
     class="alert alert-danger"
     *ngIf="roomAmenities.errors && roomAmenities.errors['minlength']"
   >
     Amenities should be minimum of 5 characters
     {{ roomAmenities.errors | json }}
-  </div>
+  </div> -->
   <div class="form-group">
     <label for="price">Price</label>
     <input
@@ -54,7 +60,6 @@
       [(ngModel)]="room.price"
       placeholder="Price"
       required
-      [defaultValue]="0"
     />
   </div>
   <div class="form-group">
@@ -67,19 +72,16 @@
       name="photos"
       [(ngModel)]="room.photos"
       placeholder="Photos (Provide URL)"
-      [defaultValue]="
-        'https://www.google.com/imgres?q=hotel%20images&imgurl=https%3A%2F%2Fwww.orchidhotel.com%2Fstatic%2Fwebsite%2Fimg%2Fhotels%2Fpanchgani%2Fhomepage_slider%2Fhomepage_slider.webp&imgrefurl=https%3A%2F%2Fwww.orchidhotel.com%2F&docid=V4MHWx2lVE8YMM&tbnid=MtRM2yyE73O8-M&vet=12ahUKEwjphrrFvsOPAxV6zDgGHQnCFRIQM3oECBgQAA..i&w=1920&h=951&hcb=2&ved=2ahUKEwjphrrFvsOPAxV6zDgGHQnCFRIQM3oECBgQAA'
-      "
     />
-    <div
+    <!-- <div
       class="alert alert-danger"
       *ngIf="roomLink.errors && roomLink.errors['url']"
     >
       Invalid URL format
       {{ roomLink.errors | json }}
-    </div>
+    </div> -->
   </div>
-  {{ roomLink.errors?.['type'] | json }}
+  <!-- {{ roomLink.errors?.['type'] | json }} -->
   <div class="form-group">
     <label for="checkinTime">Check-in Time</label>
     <input
@@ -99,7 +101,6 @@
       name="checkoutTime"
       [(ngModel)]="room.checkoutTime"
       placeholder="Check-out Time"
-      [defaultValue]="room.checkoutTime"
       required
     />
   </div>

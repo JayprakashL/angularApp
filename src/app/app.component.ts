@@ -24,14 +24,7 @@ import { AppNavComponent } from './app-nav/app-nav.component';
   // imports: [RouterOutlet, RoomComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [
-    RoomComponent,
-    EmployeeComponent,
-    ContainerComponent,
-    RouterOutlet,
-    RouterLink,
-    AppNavComponent,
-  ],
+  imports: [RouterOutlet, AppNavComponent],
 })
 export class AppComponent implements OnInit {
   // Using ViewChild the static property is false, thus use AfterViewInit

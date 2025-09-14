@@ -1,5 +1,21 @@
+1. Routing issues with same URLs
 While adding the addRoom component, an issue was encountered due to the order of routes in Angular routing configuration. 
 The routes were defined in the order `rooms/:id` and then `rooms/add`. 
 As a result, when navigating to `rooms/add`, Angular interpreted "add" as the `id` parameter. 
 This caused the RoomList component to re-render with `{{ id | async }}`, but since the parameter was "add" (a string, not a number), the value became null and displayed as NaN. 
 Reordering the routes to place `rooms/add` before `rooms/:id` resolved the issue.
+
+2. Got "null" text below Photos as [(ngModel)] and [defaultValue] cannot be used together
+Why does this happen?
+When you use both [(ngModel)] and [defaultValue] on the same input, Angular's binding takes precedence, and the default value is ignored after the first change.
+If room.photos is null or undefined, the input will display "null" or "undefined" as a string.
+How to Fix
+Remove [defaultValue] from the input and instead initialize room.photos in your component:
+
+3. Similar issue faced with defaultValue present in <input>
+When defaultValue is used in any input tags, Angular marks the form as pristine and untouched only if the values match the initial values of the controls.
+However, if you use [defaultValue] or set a value directly in the input, Angular considers the field as "changed" compared to the model, so it becomes dirty/pristine accordingly.
+This occurs because Using [defaultValue] on an input does not update the model (room), so after reset, the input and model can be out of sync.
+If you set the model (this.room = {...}) and then call roomsForm.resetForm(this.room), but the input has a [defaultValue] or a value attribute, Angular sees a mismatch and marks the field as dirty.
+
+4. 
